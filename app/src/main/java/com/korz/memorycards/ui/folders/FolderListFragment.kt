@@ -1,7 +1,7 @@
 package com.korz.memorycards.ui.folders
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View.VISIBLE
 import com.korz.memorycards.R
 import com.korz.memorycards.databinding.FragmentFoldersListBinding
 import com.korz.memorycards.interfaces.Folder
@@ -11,7 +11,8 @@ import ru.id_east.gm.ui.common.BaseFragment
 import ru.id_east.gm.ui.common.setDumbClickListener
 import ru.id_east.gm.utils.notNullObserve
 
-class FolderListFragment : BaseFragment<FragmentFoldersListBinding>() {
+class FolderListFragment : BaseFragment<FragmentFoldersListBinding>(),
+    CreateFolderDialog.CreateFolderListener {
     override val layoutId = R.layout.fragment_folders_list
     val parentId by lazy {
         arguments?.getLong(PARENT_ID) ?: throw IllegalArgumentException("parentId must not be null")
@@ -21,11 +22,15 @@ class FolderListFragment : BaseFragment<FragmentFoldersListBinding>() {
     private val viewModel: FoldersListViewModel by viewModel()
 
     private val adapter =
-        SimpleRecyclerAdapter<Folder>(R.layout.item_child_folder, l = { view, item, _ ->
-            if (view.id == R.id.showChildFolders) {
-                openFolder(item.id ?: -1)
-            }
-        })
+        SimpleRecyclerAdapter<Folder>(
+            R.layout.item_child_folder,
+            l = { view, item, _ ->
+                if (view.id == R.id.showChildFolders) {
+                    openFolder(item.id ?: -1)
+                }
+            },
+            compareContent = { o1, o2 -> o1.id == o2.id && o1.name == o2.name },
+            compareObject = { o1, o2 -> o1.id == o2.id })
 
     override fun onViewCreated(binding: FragmentFoldersListBinding, savedInstanceState: Bundle?) {
         binding.childFoldersList.adapter = adapter
@@ -36,7 +41,7 @@ class FolderListFragment : BaseFragment<FragmentFoldersListBinding>() {
         }
 
         binding.addFolderButton.setDumbClickListener {
-            CreateFolderDialog.newInstance(parentId).show(parentFragmentManager, null)
+            CreateFolderDialog.newInstance(parentId).show(childFragmentManager, null)
         }
 
         binding.parentFolderBackButton.setDumbClickListener { onBackPressed() }
@@ -45,9 +50,10 @@ class FolderListFragment : BaseFragment<FragmentFoldersListBinding>() {
     }
 
     fun openFolder(id: Long) {
-        parentFragmentManager
+        binding.childFolderContainer.visibility = VISIBLE
+        childFragmentManager
             .beginTransaction()
-            .replace(R.id.mainActivityFoldersContainer, newInstance(id))
+            .replace(R.id.childFolderContainer, newInstance(id))
             .addToBackStack(null)
             .commit()
     }
@@ -61,6 +67,10 @@ class FolderListFragment : BaseFragment<FragmentFoldersListBinding>() {
             }
             return fragment
         }
+    }
+
+    override fun onCreate() {
+        viewModel.requestFolder(parentId)
     }
 
 }

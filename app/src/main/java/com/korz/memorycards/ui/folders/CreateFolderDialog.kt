@@ -12,12 +12,20 @@ class CreateFolderDialog : BaseBottomSheetDialog<DialogCreateFolderBinding>() {
     override val layoutId = R.layout.dialog_create_folder
 
     private val viewModel: CreateFolderViewModel by viewModel()
+    var createListener: CreateFolderListener? = null
 
     val parentId by lazy {
         arguments?.getLong(PARENT_ID) ?: throw IllegalArgumentException("parentId must not be null")
     }
 
     override fun onViewCreated(binding: DialogCreateFolderBinding) {
+        val fragment = parentFragment
+        if (fragment is CreateFolderListener) {
+            createListener = fragment
+        } else {
+            throw IllegalArgumentException("parent fragment must be not null")
+        }
+
 
         viewModel.initId(parentId)
         binding.viewModel = viewModel
@@ -27,6 +35,7 @@ class CreateFolderDialog : BaseBottomSheetDialog<DialogCreateFolderBinding>() {
 
         viewModel.newFolderId.notNullObserve(viewLifecycleOwner) {
             dismiss()
+            createListener?.onCreate()
         }
 
         viewModel.error.notNullObserve(viewLifecycleOwner, defaultErrorHandler)
@@ -42,5 +51,9 @@ class CreateFolderDialog : BaseBottomSheetDialog<DialogCreateFolderBinding>() {
             }
             return fragment
         }
+    }
+
+    interface CreateFolderListener {
+        fun onCreate()
     }
 }

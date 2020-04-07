@@ -7,6 +7,7 @@
     <color name="commonBlack">#000000</color>
     <color name="commonGray">#F3F3F3</color>
     <color name="commonYellow">#FFEE00</color>
+    <color name="commonWhite">#FFFFFF</color>
     <color name="textGrayLight">#939393</color>
     <color name="unavailableGray">#cccccc</color>
 </resources>
