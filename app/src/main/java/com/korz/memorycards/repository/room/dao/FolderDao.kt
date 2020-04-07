@@ -8,14 +8,14 @@ import com.korz.memorycards.repository.room.entity.FolderKeys
 @Dao
 interface FolderDao {
 
-    @Query("SELECT * from ${FolderKeys.TABLE_NAME} WHERE ${FolderKeys.PARENT_FOLDER_ID} = null")
-    fun getTopFolders(): List<FolderDb>
+    @Query("SELECT * from ${FolderKeys.TABLE_NAME} WHERE ${FolderKeys.PARENT_FOLDER_ID} = -1")
+    suspend fun getTopFolders(): List<FolderDb>
 
     @Query("SELECT * from ${FolderKeys.TABLE_NAME} WHERE ${FolderKeys.PARENT_FOLDER_ID} = :parentId")
-    fun getChildFolders(parentId: Long): List<FolderDb>
+    suspend fun getChildFolders(parentId: Long): List<FolderDb>
 
     @Query("SELECT * from ${FolderKeys.TABLE_NAME} WHERE id = :chapterId")
-    fun getFolderById(chapterId: Long): FolderDb
+    suspend fun getFolderById(chapterId: Long): FolderDb
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(chapter: FolderDb): Long

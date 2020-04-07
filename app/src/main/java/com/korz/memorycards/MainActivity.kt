@@ -3,9 +3,8 @@ package com.korz.memorycards
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.ui.AppBarConfiguration
 import com.korz.memorycards.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.korz.memorycards.ui.folders.FolderListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +14,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val container = binding.mainActivityFragmentContainer
+        setContentView(R.layout.activity_main)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.mainActivityFoldersContainer, FolderListFragment.newInstance())
+            .commit()
     }
 }

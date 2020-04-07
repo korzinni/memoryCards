@@ -17,6 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "long", "RECYCLER_ITEM_CLICK_DELAY", "500"
+        buildConfigField "boolean", "SHOW_ERRORS", "true"
     }
 
     buildTypes {
@@ -51,9 +52,9 @@ android {
         main {
             res.srcDirs = [
                     'src/main/res',
-                    'src/main/res/layouts/chapter',
+                    'src/main/res/layouts/folder',
                     'src/main/res/layouts/card',
-                    'src/main/res/layouts/common',
+                    'src/main/res/layouts/common'
             ]
         }
     }

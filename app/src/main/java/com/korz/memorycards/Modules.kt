@@ -4,7 +4,8 @@ import androidx.room.Room
 import com.korz.memorycards.interfaces.FolderRepository
 import com.korz.memorycards.repository.FolderRepositoryImpl
 import com.korz.memorycards.repository.room.CardsDatabase
-import com.korz.memorycards.ui.chaptersList.ChaptersListViewModel
+import com.korz.memorycards.ui.folders.CreateFolderViewModel
+import com.korz.memorycards.ui.folders.FoldersListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -23,6 +24,7 @@ val chapterModule = module {
     single { (get() as CardsDatabase).folderDao() }
     single<FolderRepository> { FolderRepositoryImpl(get()) }
     viewModel {
-        ChaptersListViewModel(folderRepository = get())
+        FoldersListViewModel(folderRepository = get())
     }
+    viewModel { CreateFolderViewModel(folderRepository = get()) }
 }

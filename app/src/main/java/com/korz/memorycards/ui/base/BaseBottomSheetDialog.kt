@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.crashlytics.android.Crashlytics
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.korz.memorycards.BuildConfig
 import com.korz.memorycards.R
 
 
@@ -72,21 +75,14 @@ abstract class BaseBottomSheetDialog<T : ViewDataBinding>() : BottomSheetDialogF
     abstract fun onViewCreated(binding: T)
 
 
-//    val defaultErrorHandler = { it: Throwable ->
-//        if (it is UnknownHostException) {
-//            val snackbar = Snackbar.make(
-//                (requireActivity() as MainActivity).binding.root, "No internet connection",
-//                Snackbar.LENGTH_LONG
-//            )
-//            snackbar.show()
-//
-//        } else if (BuildConfig.SHOW_ERRORS) {
-//            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-//        } else {
-//            Crashlytics.logException(it)
-//        }
-//
-//    }
+    val defaultErrorHandler = { it: Throwable ->
+        if (BuildConfig.SHOW_ERRORS) {
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+        } else {
+            Crashlytics.logException(it)
+        }
+
+    }
 
 //    val closeDialogErrorHandler = { it: Throwable ->
 //        defaultErrorHandler(it)

@@ -1,4 +1,4 @@
-package com.korz.memorycards.ui.createCard
+package com.korz.memorycards.ui.cards
 
 import android.os.Bundle
 import com.korz.memorycards.R

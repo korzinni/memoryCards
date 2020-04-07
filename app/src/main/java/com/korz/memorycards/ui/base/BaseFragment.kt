@@ -12,6 +12,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
+import com.korz.memorycards.BuildConfig
+import com.korz.memorycards.MainActivity
 import com.korz.memorycards.widgets.DumbClickListener
 import ru.id_east.gm.utils.KeyboardUtils
 import java.net.UnknownHostException
@@ -53,25 +55,14 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     abstract fun onViewCreated(binding: T, savedInstanceState: Bundle?)
 
     var snackbar: Snackbar? = null
-//    val defaultErrorHandler = { it: Throwable ->
-//        if (it is UnknownHostException) {
-//            var localCopySnackBar = snackbar
-//            if (localCopySnackBar == null || !localCopySnackBar.isShown) {
-//                localCopySnackBar = Snackbar.make(
-//                    (requireActivity() as MainActivity).binding.root, "No internet connection",
-//                    Snackbar.LENGTH_LONG
-//                )
-//                snackbar = localCopySnackBar
-//                localCopySnackBar.show()
-//            }
-//        } else if (BuildConfig.SHOW_ERRORS) {
-//            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-//        } else {
-//            Crashlytics.logException(it)
-//        }
-//
-//
-//    }
+    val defaultErrorHandler = { it: Throwable ->
+        if (BuildConfig.SHOW_ERRORS) {
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+        } else {
+            Crashlytics.logException(it)
+        }
+
+    }
 
 }
 
