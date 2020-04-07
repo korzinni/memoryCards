@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true" android:state_enabled="true" android:drawable="@drawable/round_solid_yellow_rect"/>
+    <item android:state_activated="false" android:state_enabled="true" android:drawable="@drawable/round_solid_gray_rect"/>
+    <item android:state_activated="true" android:state_enabled="false" android:drawable="@drawable/round_solid_yellow_rect"/>
+    <item android:state_activated="false" android:state_enabled="false" android:drawable="@drawable/round_solid_dark_gray_rect"/>
+</selector>
