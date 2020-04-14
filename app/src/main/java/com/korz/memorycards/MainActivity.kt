@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.korz.memorycards.databinding.ActivityMainBinding
 import com.korz.memorycards.ui.folders.FolderListFragment
+import com.korz.memorycards.ui.folders.TestListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.mainActivityFoldersContainer, FolderListFragment.newInstance())
+            .commit()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.mainActivityFragmentContainer, TestListFragment())
             .commit()
     }
 }

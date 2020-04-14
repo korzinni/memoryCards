@@ -1,7 +1,10 @@
 package com.korz.memorycards.ui.folders
 
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.View.VISIBLE
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.FragmentTransaction
 import com.korz.memorycards.R
 import com.korz.memorycards.databinding.FragmentFoldersListBinding
 import com.korz.memorycards.interfaces.Folder
@@ -17,6 +20,12 @@ class FolderListFragment : BaseFragment<FragmentFoldersListBinding>(),
     val parentId by lazy {
         arguments?.getLong(PARENT_ID) ?: throw IllegalArgumentException("parentId must not be null")
     }
+
+    val margin10 by lazy { resources.getDimensionPixelSize(R.dimen._20) }
+    val textSize15 by lazy { resources.getDimensionPixelSize(R.dimen.text15) }
+    val margin20 by lazy { resources.getDimensionPixelSize(R.dimen._20) }
+    val margin40 by lazy { resources.getDimensionPixelSize(R.dimen._40) }
+    val margin60 by lazy { resources.getDimensionPixelSize(R.dimen._60) }
 
 
     private val viewModel: FoldersListViewModel by viewModel()
@@ -50,11 +59,21 @@ class FolderListFragment : BaseFragment<FragmentFoldersListBinding>(),
     }
 
     fun openFolder(id: Long) {
-        binding.childFolderContainer.visibility = VISIBLE
+        val root = binding.rootConstraintLayout
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(root)
+        constraintSet.setGuidelineBegin(R.id.guidline1, 0)
+        constraintSet.setGuidelineBegin(R.id.guidline2, margin20)
+
+        //val autoTransition = AutoTransition()
+        TransitionManager.beginDelayedTransition(root)
+        constraintSet.applyTo(root)
+
         childFragmentManager
             .beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .replace(R.id.childFolderContainer, newInstance(id))
-            .addToBackStack(null)
+            .addToBackStack("${hashCode()}")
             .commit()
     }
 

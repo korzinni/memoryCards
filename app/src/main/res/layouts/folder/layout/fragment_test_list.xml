@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.korz.memorycards.interfaces.Folder" />
+
+        <variable
+            name="position"
+            type="int" />
+
+        <variable
+            name="action"
+            type="com.korz.memorycards.widgets.recyclerView.SimpleRecyclerAdapter.ClickListener&lt;com.korz.memorycards.interfaces.Folder>" />
+
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <import type="com.korz.memorycards.ui.folders.FolderBindingHelper" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/bottomShit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/commonWhite">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/childFoldersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    app:childFolders="@{item.innerFolders}"
+                    app:childListener="@{action}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guidline2"
+                    app:recyclerOrientation="@{RecyclerView.VERTICAL}"
+                    tools:listitem="@layout/item_child_folder" />
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/commonBlack13"
+            app:layoutDescription="@xml/scene_01">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="TEXT"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </FrameLayout>
+</layout>

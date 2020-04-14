@@ -11,66 +11,86 @@
     </data>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/commonWhite">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/commonWhite">
 
-            <ru.id_east.gm.widgets.AlphaImageButton
-                android:id="@+id/parentFolderBackButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_arrow_left"
-                app:layout_constraintBottom_toBottomOf="@id/parentFolderTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/parentFolderTitle" />
+        <ru.id_east.gm.widgets.AlphaImageButton
+            android:id="@+id/parentFolderBackButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_arrow_left"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@id/guidline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidline1" />
 
-            <ru.id_east.gm.widgets.AlphaImageButton
-                android:id="@+id/addFolderButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_arrow_left"
-                app:layout_constraintBottom_toBottomOf="@id/parentFolderTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/parentFolderTitle" />
+        <ru.id_east.gm.widgets.AlphaImageButton
+            android:id="@+id/addFolderButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintBottom_toTopOf="@id/guidline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidline1" />
 
-            <TextView
-                android:id="@+id/parentFolderTitle"
-                style="@style/Title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toStartOf="@id/addFolderButton"
-                app:layout_constraintStart_toEndOf="@id/parentFolderBackButton"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_goneMarginStart="16dp"
-                tools:text="Parent folder" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/parentFolderTitle"
+            style="@style/Title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toStartOf="@id/addFolderButton"
+            app:layout_constraintStart_toEndOf="@id/parentFolderBackButton"
+            app:layout_constraintTop_toBottomOf="@id/guidline1"
+            app:layout_constraintBottom_toTopOf="@id/guidline2"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            android:gravity="center_vertical"
+            tools:text="Parent folder" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/childFoldersList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/parentFolderTitle"
-                app:recyclerOrientation="@{RecyclerView.VERTICAL}"
-                tools:listitem="@layout/item_child_folder" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/childFolderContainer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/parentFolderTitle" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/childFoldersList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidline2"
+            app:recyclerOrientation="@{RecyclerView.VERTICAL}"
+            tools:listitem="@layout/item_child_folder" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/childFolderContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidline2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

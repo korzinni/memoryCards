@@ -5,6 +5,7 @@
     <color name="colorAccent">@color/commonYellow</color>
 
     <color name="commonBlack">#000000</color>
+    <color name="commonBlack13">#13000000</color>
     <color name="commonGray">#F3F3F3</color>
     <color name="commonYellow">#FFEE00</color>
     <color name="commonWhite">#FFFFFF</color>

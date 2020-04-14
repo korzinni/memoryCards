@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.korz.memorycards.ui.folders.FoldersViewModel.FolderItem" />
+
+        <variable
+            name="position"
+            type="int" />
+
+        <variable
+            name="deep"
+            type="int" />
+
+        <variable
+            name="action"
+            type="com.korz.memorycards.widgets.recyclerView.SimpleRecyclerAdapter.ClickListener&lt;com.korz.memorycards.interfaces.Folder>" />
+
+        <variable
+            name="layoutCallback"
+            type="com.korz.memorycards.ui.folders.LayoutCallback" />
+
+        <import type="androidx.recyclerview.widget.RecyclerView" />
+
+        <import type="com.korz.memorycards.ui.folders.FolderBindingHelper" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/commonBlack13"
+        android:clickable="true"
+        android:onClickListener="@{view-> action!=null ? action.onClick(view, item,position) : null}">
+
+        <ru.id_east.gm.widgets.AlphaImageButton
+            android:id="@+id/parentFolderBackButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_right"
+            android:visibility="@{!item.innerFolders.empty}"
+            app:layout_constraintBottom_toBottomOf="@id/parentFolderTitle"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/parentFolderTitle" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/parentFolderTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text='@{item.id+" "+item.deep+" "}'
+            app:dependentMargin="@{item.deep}"
+            app:layout_constraintBottom_toBottomOf="@id/parentFolderId"
+            app:layout_constraintEnd_toStartOf="@id/parentFolderBackButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginEnd="@dimen/_40"
+            android:textSize="@{item.extend ? @dimen/_40 : @dimen/_20}"
+            tools:text="Parent folder" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/parentFolderId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_60"
+            android:gravity="center_vertical"
+            android:text='@{""+position}'
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/parentFolderBackButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parentFolderTitle"
+            tools:text="Parent folder" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
